@@ -30,7 +30,6 @@ class NetworkServise {
             
             do {
                 let object = try decoder.decode(SearchResponse.self, from: data)
-                print(object)
                 complition(object)
                 
             } catch let jsonError {

@@ -13,19 +13,31 @@ enum Search {
   enum Model {
     struct Request {
       enum RequestType {
-        case getTracks
+          case getTracks(searchTerm: String)
       }
     }
     struct Response {
       enum ResponseType {
-        case presentTracks
+          case presentTracks(searchResponse: SearchResponse?)
       }
     }
     struct ViewModel {
       enum ViewModelData {
-        case desplayTracks
+          case desplayTracks(searchViewModel: SearchViewModel)
       }
     }
   }
-  
+}
+
+
+//Тут зробимо модель данних яку заповнить presener - та дамо вже назви зрозумілі нам
+struct SearchViewModel {
+    struct Cell {
+        var iconUrlString: String?
+        var trackName: String?
+        var collectionName: String?
+        var artistName: String
+    }
+    
+    let cells: [Cell]
 }

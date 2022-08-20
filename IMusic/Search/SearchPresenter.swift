@@ -18,10 +18,27 @@ class SearchPresenter: SearchPresentationLogic {
     func presentData(response: Search.Model.Response.ResponseType) {
         
         switch response {
-        case .presentTracks:
-            print("presenter .presentTracks")
-            viewController?.displayData(viewModel: .desplayTracks)
+        case .presentTracks(searchResponse: let searchResponse):
+            
+           //Проходимось по масиву пісень та кожну з них передаємо в метод - а отримуємо масив вже підготовлених данних
+           let cells = searchResponse?.results.map({ track in
+                cellViewModel(from: track)
+            }) ?? []
+            
+            //Ініціалізуємо SearchViewModel через масив треків
+            let searchViewModel = SearchViewModel.init(cells: cells)
+            
+            //Передаємо на viewController уже підготовленні данні типу SearchViewModel
+            viewController?.displayData(viewModel: .desplayTracks(searchViewModel: searchViewModel))
         }
     }
     
+    //Метод буде конвертувати модель Track в модель Сell - тобто ми підготуємо данні для ViewControllera
+    private func cellViewModel(from track: Trask) -> SearchViewModel.Cell {
+        
+        return SearchViewModel.Cell.init(iconUrlString: track.artworkUrl100,
+                                         trackName: track.trackName,
+                                         collectionName: track.collectionName,
+                                         artistName: track.artistName)
+    }
 }

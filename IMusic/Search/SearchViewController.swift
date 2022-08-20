@@ -20,6 +20,10 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
     @IBOutlet weak var table: UITableView!
     
     let searchController = UISearchController(searchResultsController: nil)
+    //Будемо зберігати тут масив треків
+    private var searchViewModel = SearchViewModel.init(cells: [])
+    //Зробимо таймер
+    private var timer: Timer?
     
     // MARK: Object lifecycle
     
@@ -58,6 +62,8 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
         navigationItem.searchController = searchController
         //Для того щоб він появлявся зразу а не при свайпі
         navigationItem.hidesSearchBarWhenScrolling = false
+        //Щоб екран не затемнювався при пошуку
+        searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.delegate = self
     }
     
@@ -69,8 +75,10 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
     func displayData(viewModel: Search.Model.ViewModel.ViewModelData) {
         
         switch viewModel {
-        case .desplayTracks:
-            print("viewModel .desplayTracks")
+        case .desplayTracks(searchViewModel: let searchViewModel):
+            //Заповнюємо маисв
+            self.searchViewModel = searchViewModel
+            table.reloadData()
         }
     }
     
@@ -82,12 +90,16 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return searchViewModel.cells.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "\(indexPath)"
+        
+        let cellViewModel = searchViewModel.cells[indexPath.row]
+        cell.textLabel?.text = "\(cellViewModel.trackName ?? "")\n\(cellViewModel.artistName)"
+        cell.textLabel?.numberOfLines = 2
+        cell.imageView?.image = #imageLiteral(resourceName: "Image")
         return cell
     }
 }
@@ -98,8 +110,13 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
-        //Роби запит до interactor
-        interactor?.makeRequest(request: .getTracks)
+        //Запускаємо його
+        timer?.invalidate()
+        
+        //Таймер для того щоб запит не робився після кожного символу а чекав 0.5 секунди
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
+            //Робим запит до interactor
+            self.interactor?.makeRequest(request: .getTracks(searchTerm: searchText))
+        })
     }
 }
