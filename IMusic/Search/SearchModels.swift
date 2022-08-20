@@ -32,11 +32,12 @@ enum Search {
 
 //Тут зробимо модель данних яку заповнить presener - та дамо вже назви зрозумілі нам
 struct SearchViewModel {
-    struct Cell {
+    struct Cell: TrackCellViewModel {
         var iconUrlString: String?
-        var trackName: String?
-        var collectionName: String?
+        var trackName: String
+        var collectionName: String
         var artistName: String
+        var previewUrl: String?
     }
     
     let cells: [Cell]

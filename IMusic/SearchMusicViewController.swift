@@ -47,7 +47,7 @@ class SearchMusicViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let track = tracks[indexPath.row]
         cell.imageView?.image = #imageLiteral(resourceName: "Image")
-        cell.textLabel?.text = "\(track.trackName ?? "")\n\(track.artistName)"
+        cell.textLabel?.text = "\(track.trackName)\n\(track.artistName)"
         cell.textLabel?.numberOfLines = 2
         return cell
     }

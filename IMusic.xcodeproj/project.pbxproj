@@ -26,6 +26,8 @@
 		951B30A528B11A0800552E75 /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951B309E28B11A0800552E75 /* SearchInteractor.swift */; };
 		951B30A828B11E7B00552E75 /* SearchViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 951B30A728B11E7B00552E75 /* SearchViewController.storyboard */; };
 		951B30AB28B1207E00552E75 /* UIViewController + Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951B30AA28B1207E00552E75 /* UIViewController + Storyboard.swift */; };
+		951B30AE28B13E3000552E75 /* TrackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 951B30AD28B13E3000552E75 /* TrackCell.xib */; };
+		951B30B028B13E4900552E75 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951B30AF28B13E4900552E75 /* TrackCell.swift */; };
 		BCCDAE2164E7D253D5B660A7 /* Pods_IMusic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CEB6AF5D94C9E1949DA458D /* Pods_IMusic.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +55,8 @@
 		951B309E28B11A0800552E75 /* SearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInteractor.swift; sourceTree = "<group>"; };
 		951B30A728B11E7B00552E75 /* SearchViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchViewController.storyboard; sourceTree = "<group>"; };
 		951B30AA28B1207E00552E75 /* UIViewController + Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Storyboard.swift"; sourceTree = "<group>"; };
+		951B30AD28B13E3000552E75 /* TrackCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackCell.xib; sourceTree = "<group>"; };
+		951B30AF28B13E4900552E75 /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
 		DA5048DD63923198200CEA89 /* Pods-IMusic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IMusic.release.xcconfig"; path = "Target Support Files/Pods-IMusic/Pods-IMusic.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,7 +118,6 @@
 				951B308928B1192500552E75 /* Search */,
 				951B308128B0CDA500552E75 /* SearchMusicViewController.swift */,
 				951B306F28B0CB3700552E75 /* ViewController.swift */,
-				951B308328B0E91800552E75 /* SearchResponse.swift */,
 				951B30A928B1206600552E75 /* Helpers */,
 				951B307128B0CB3700552E75 /* Main.storyboard */,
 				951B307428B0CB3800552E75 /* Assets.xcassets */,
@@ -127,6 +130,7 @@
 		951B308928B1192500552E75 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				951B30AC28B13E2000552E75 /* Cell */,
 				951B30A728B11E7B00552E75 /* SearchViewController.storyboard */,
 				951B309D28B11A0800552E75 /* SearchViewController.swift */,
 				951B309E28B11A0800552E75 /* SearchInteractor.swift */,
@@ -142,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				951B308528B0FFB800552E75 /* NetworkServise.swift */,
+				951B30B128B142E300552E75 /* Models */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -152,6 +157,23 @@
 				951B30AA28B1207E00552E75 /* UIViewController + Storyboard.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		951B30AC28B13E2000552E75 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				951B30AD28B13E3000552E75 /* TrackCell.xib */,
+				951B30AF28B13E4900552E75 /* TrackCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		951B30B128B142E300552E75 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				951B308328B0E91800552E75 /* SearchResponse.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,6 +239,7 @@
 				951B308828B1074F00552E75 /* .gitignore in Resources */,
 				951B307828B0CB3800552E75 /* LaunchScreen.storyboard in Resources */,
 				951B307528B0CB3800552E75 /* Assets.xcassets in Resources */,
+				951B30AE28B13E3000552E75 /* TrackCell.xib in Resources */,
 				951B307328B0CB3700552E75 /* Main.storyboard in Resources */,
 				951B30A828B11E7B00552E75 /* SearchViewController.storyboard in Resources */,
 			);
@@ -276,6 +299,7 @@
 				951B308228B0CDA500552E75 /* SearchMusicViewController.swift in Sources */,
 				951B307028B0CB3700552E75 /* ViewController.swift in Sources */,
 				951B30A528B11A0800552E75 /* SearchInteractor.swift in Sources */,
+				951B30B028B13E4900552E75 /* TrackCell.swift in Sources */,
 				951B308428B0E91800552E75 /* SearchResponse.swift in Sources */,
 				951B306C28B0CB3700552E75 /* AppDelegate.swift in Sources */,
 				951B30A128B11A0800552E75 /* SearchWorker.swift in Sources */,
