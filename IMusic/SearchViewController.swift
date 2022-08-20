@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 struct TrackModel {
     var trackName: String
@@ -15,11 +16,13 @@ struct TrackModel {
 //Це буде контроллер пошуку музики - сюди будуть з нету приходити дані музики тому і UITableViewController
 class SearchViewController: UITableViewController {
     
+    //Зробимо таймер
+    private var timer: Timer?
+    
     let searchController = UISearchController(searchResultsController: nil)
     
-    let tracks = [TrackModel(trackName: "bad guy", artistName: "Billie Eilish"),
-                 TrackModel(trackName: "bury a friend", artistName: "Billie Eilish")
-    ]
+    //Декодовані треки
+    var tracks = [Trask]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +48,7 @@ class SearchViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let track = tracks[indexPath.row]
         cell.imageView?.image = #imageLiteral(resourceName: "Image")
-        cell.textLabel?.text = "\(track.trackName)\n\(track.artistName)"
+        cell.textLabel?.text = "\(track.trackName ?? "")\n\(track.artistName)"
         cell.textLabel?.numberOfLines = 2
         return cell
     }
@@ -55,6 +58,36 @@ extension SearchViewController: UISearchBarDelegate {
     
     //Метод буде спацьовувати кожний раз коли ми будемо ввводити символ
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
+        
+        //Запускаємо його
+        timer?.invalidate()
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
+            
+            let url = "https://itunes.apple.com/search"
+            let parametrs = ["term": "\(searchText)", "limit": "10"]
+            
+            //Робимо запит з парамитрами
+            AF.request(url, method: .get, parameters: parametrs).responseData { dataResponse in
+                if let error = dataResponse.error {
+                    print("Error received requestiong data: \(error)")
+                    return
+                }
+                
+                guard let data = dataResponse.data else { return }
+                
+                let decoder = JSONDecoder()
+                do {
+                    let object = try decoder.decode(SearchResponse.self, from: data)
+                    print(object)
+                    //Заповнюємо масив данними
+                    self.tracks = object.results
+                    self.tableView.reloadData()
+                } catch let jsonError {
+                    print(jsonError.localizedDescription)
+                }
+                
+            }
+        })
     }
 }
