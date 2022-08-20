@@ -16,7 +16,7 @@ class MainTabBarController: UITabBarController {
         tabBar.tintColor = #colorLiteral(red: 1, green: 0.1719063818, blue: 0.4505617023, alpha: 1)
         
         //Передаємо які контроллери ми хочемо бачити в tabBar
-        viewControllers = [generateViewController(rootViewController: SearchViewController(), image: #imageLiteral(resourceName: "search"), title: "Search"),
+        viewControllers = [generateViewController(rootViewController: SearchMusicViewController(), image: #imageLiteral(resourceName: "search"), title: "Search"),
                            generateViewController(rootViewController: ViewController(), image: #imageLiteral(resourceName: "library"), title: "Library")
         ]
     }

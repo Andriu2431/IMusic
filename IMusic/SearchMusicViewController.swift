@@ -14,7 +14,7 @@ struct TrackModel {
 }
 
 //Це буде контроллер пошуку музики - сюди будуть з нету приходити дані музики тому і UITableViewController
-class SearchViewController: UITableViewController {
+class SearchMusicViewController: UITableViewController {
     
     var networkServise = NetworkServise()
     //Зробимо таймер
@@ -53,7 +53,7 @@ class SearchViewController: UITableViewController {
     }
 }
 
-extension SearchViewController: UISearchBarDelegate {
+extension SearchMusicViewController: UISearchBarDelegate {
     
     //Метод буде спацьовувати кожний раз коли ми будемо ввводити символ
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
