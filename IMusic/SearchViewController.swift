@@ -16,11 +16,10 @@ struct TrackModel {
 //Це буде контроллер пошуку музики - сюди будуть з нету приходити дані музики тому і UITableViewController
 class SearchViewController: UITableViewController {
     
+    var networkServise = NetworkServise()
     //Зробимо таймер
     private var timer: Timer?
-    
     let searchController = UISearchController(searchResultsController: nil)
-    
     //Декодовані треки
     var tracks = [Trask]()
     
@@ -62,31 +61,11 @@ extension SearchViewController: UISearchBarDelegate {
         //Запускаємо його
         timer?.invalidate()
         
+        //Таймер для того щоб запит не робився після кожного символу а чекав 0.5 секунди
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
-            
-            let url = "https://itunes.apple.com/search"
-            let parametrs = ["term": "\(searchText)", "limit": "10"]
-            
-            //Робимо запит з парамитрами
-            AF.request(url, method: .get, parameters: parametrs).responseData { dataResponse in
-                if let error = dataResponse.error {
-                    print("Error received requestiong data: \(error)")
-                    return
-                }
-                
-                guard let data = dataResponse.data else { return }
-                
-                let decoder = JSONDecoder()
-                do {
-                    let object = try decoder.decode(SearchResponse.self, from: data)
-                    print(object)
-                    //Заповнюємо масив данними
-                    self.tracks = object.results
-                    self.tableView.reloadData()
-                } catch let jsonError {
-                    print(jsonError.localizedDescription)
-                }
-                
+            self.networkServise.fetchTracks(searchText: searchText) { [weak self] searchResults in
+                self?.tracks = searchResults?.results ?? []
+                self?.tableView.reloadData()
             }
         })
     }
