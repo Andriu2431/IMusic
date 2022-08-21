@@ -31,6 +31,7 @@
 		951B30B428B2287100552E75 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951B30B328B2287100552E75 /* FooterView.swift */; };
 		951B30B728B239B600552E75 /* TrackDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 951B30B628B239B600552E75 /* TrackDetailView.xib */; };
 		951B30B928B239C500552E75 /* TrackDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951B30B828B239C500552E75 /* TrackDetailView.swift */; };
+		951B30BB28B2B2D000552E75 /* CMTime + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951B30BA28B2B2D000552E75 /* CMTime + Extension.swift */; };
 		BCCDAE2164E7D253D5B660A7 /* Pods_IMusic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CEB6AF5D94C9E1949DA458D /* Pods_IMusic.framework */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +64,7 @@
 		951B30B328B2287100552E75 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		951B30B628B239B600552E75 /* TrackDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackDetailView.xib; sourceTree = "<group>"; };
 		951B30B828B239C500552E75 /* TrackDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDetailView.swift; sourceTree = "<group>"; };
+		951B30BA28B2B2D000552E75 /* CMTime + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMTime + Extension.swift"; sourceTree = "<group>"; };
 		DA5048DD63923198200CEA89 /* Pods-IMusic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IMusic.release.xcconfig"; path = "Target Support Files/Pods-IMusic/Pods-IMusic.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				951B30AA28B1207E00552E75 /* UIViewController + Storyboard.swift */,
+				951B30BA28B2B2D000552E75 /* CMTime + Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				951B307028B0CB3700552E75 /* ViewController.swift in Sources */,
 				951B30A528B11A0800552E75 /* SearchInteractor.swift in Sources */,
 				951B30B428B2287100552E75 /* FooterView.swift in Sources */,
+				951B30BB28B2B2D000552E75 /* CMTime + Extension.swift in Sources */,
 				951B30B028B13E4900552E75 /* TrackCell.swift in Sources */,
 				951B308428B0E91800552E75 /* SearchResponse.swift in Sources */,
 				951B306C28B0CB3700552E75 /* AppDelegate.swift in Sources */,

@@ -51,6 +51,8 @@ class TrackDetailView: UIView {
         playTrack(previewUrl: viewModel.previewUrl)
         //Викликаємо наглядача який буде очікувати коли включиться музика
         monitorStartTime()
+        //Робота з часом музики
+        observePlayerCurrentTime()
         
         //В URL змінемо 100 на 100 в 600 на 600, щоб отримати фотку більшу
         let string600 = viewModel.iconUrlString?.replacingOccurrences(of: "100x100", with: "600x600")
@@ -83,6 +85,24 @@ class TrackDetailView: UIView {
         player.addBoundaryTimeObserver(forTimes: times, queue: .main) { [weak self] in
             //Як тільки музика включилась то фото збільшується
             self?.enlargeTrackImageView()
+        }
+    }
+    
+    //Метод буде слідкувати за позицією треку
+    private func observePlayerCurrentTime() {
+        
+        let interval = CMTimeMake(value: 1, timescale: 2)
+        
+        //Що будемо робити кожну секунду проіграного треку
+        player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] time in
+            //Передамо цей час в лейбел
+            self?.currentTimeLabel.text = time.toDisplayString()
+            
+            //фіксуємо скільки всього часу йде трек
+            let durationTime = self?.player.currentItem?.duration
+            //Скільки часу залишилось іграти музиці в теперешній час
+            let currentDuratinText = ((durationTime ?? CMTimeMake(value: 1, timescale: 1)) - time).toDisplayString()
+            self?.duratioLabel.text = "-\(currentDuratinText)"
         }
     }
     
