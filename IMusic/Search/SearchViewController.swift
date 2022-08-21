@@ -117,7 +117,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     //Тап на контейнер
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let cellViewModel = searchViewModel.cells[indexPath.row]
+        let cellViewModel = searchViewModel.cells[indexPath.row]
         
         //Отримуємо вінко на якому находимось
         let window = UIApplication.shared.connectedScenes
@@ -125,10 +125,14 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
             .compactMap({$0 as? UIWindowScene})
             .first?.windows
             .filter({$0.isKeyWindow}).first
+        
         //Беремо перший xib файл
         let trackDetailsView = Bundle.main.loadNibNamed("TrackDetailView", owner: self, options: nil)?.first as! TrackDetailView
         //Задамо розміри як на view
         trackDetailsView.frame = view.frame
+        //Заповнюємо UI
+        trackDetailsView.set(viewModel: cellViewModel)
+        
         //Передаємо його щоб був над всією іерархією контроллерів
         window?.addSubview(trackDetailsView)
     }
