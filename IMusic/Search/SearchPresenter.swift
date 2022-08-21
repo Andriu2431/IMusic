@@ -30,6 +30,9 @@ class SearchPresenter: SearchPresentationLogic {
             
             //Передаємо на viewController уже підготовленні данні типу SearchViewModel
             viewController?.displayData(viewModel: .desplayTracks(searchViewModel: searchViewModel))
+        case .presentFooterView:
+            //передаємо до viewController
+            viewController?.displayData(viewModel: .displayFooterView)
         }
     }
     

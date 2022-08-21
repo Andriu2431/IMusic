@@ -24,6 +24,8 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
     private var searchViewModel = SearchViewModel.init(cells: [])
     //Зробимо таймер
     private var timer: Timer?
+    //Це наш індикатор та лейбел загрузки 
+    private lazy var footerView = FooterView()
     
     // MARK: Object lifecycle
     
@@ -73,6 +75,8 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
         
         let nib = UINib(nibName: "TrackCell", bundle: nil)
         table.register(nib, forCellReuseIdentifier: TrackCell.reuseId)
+        //Передаємо tableFooterView наше кастомне view на якамл індикатор загрузки з лейблом
+        table.tableFooterView = footerView
     }
     
     func displayData(viewModel: Search.Model.ViewModel.ViewModelData) {
@@ -82,6 +86,11 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
             //Заповнюємо маисв
             self.searchViewModel = searchViewModel
             table.reloadData()
+            //Коли данні занрузяться та таблиця обновиться то зупиним footerView
+            footerView.hideLoader()
+        case .displayFooterView:
+            //Запускаємо FooterView
+            footerView.showLoader()
         }
     }
     
@@ -108,6 +117,21 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 84
+    }
+    
+    //Це Header - label на tableView
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.text = "Please enter search term above."
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        return label
+    }
+    
+    //Для того щоб Header пропав коли ми вводимо якісь значення
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        //Скажемо якщо є контейнери то висота 0 якщо ні то 250
+        return searchViewModel.cells.count > 0 ? 0 : 250
     }
 }
 

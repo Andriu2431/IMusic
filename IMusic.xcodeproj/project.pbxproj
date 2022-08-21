@@ -28,6 +28,7 @@
 		951B30AB28B1207E00552E75 /* UIViewController + Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951B30AA28B1207E00552E75 /* UIViewController + Storyboard.swift */; };
 		951B30AE28B13E3000552E75 /* TrackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 951B30AD28B13E3000552E75 /* TrackCell.xib */; };
 		951B30B028B13E4900552E75 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951B30AF28B13E4900552E75 /* TrackCell.swift */; };
+		951B30B428B2287100552E75 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951B30B328B2287100552E75 /* FooterView.swift */; };
 		BCCDAE2164E7D253D5B660A7 /* Pods_IMusic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CEB6AF5D94C9E1949DA458D /* Pods_IMusic.framework */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,7 @@
 		951B30AA28B1207E00552E75 /* UIViewController + Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Storyboard.swift"; sourceTree = "<group>"; };
 		951B30AD28B13E3000552E75 /* TrackCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackCell.xib; sourceTree = "<group>"; };
 		951B30AF28B13E4900552E75 /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
+		951B30B328B2287100552E75 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		DA5048DD63923198200CEA89 /* Pods-IMusic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IMusic.release.xcconfig"; path = "Target Support Files/Pods-IMusic/Pods-IMusic.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,6 +132,7 @@
 		951B308928B1192500552E75 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				951B30B228B2285D00552E75 /* FooterView */,
 				951B30AC28B13E2000552E75 /* Cell */,
 				951B30A728B11E7B00552E75 /* SearchViewController.storyboard */,
 				951B309D28B11A0800552E75 /* SearchViewController.swift */,
@@ -174,6 +177,14 @@
 				951B308328B0E91800552E75 /* SearchResponse.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		951B30B228B2285D00552E75 /* FooterView */ = {
+			isa = PBXGroup;
+			children = (
+				951B30B328B2287100552E75 /* FooterView.swift */,
+			);
+			path = FooterView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,6 +310,7 @@
 				951B308228B0CDA500552E75 /* SearchMusicViewController.swift in Sources */,
 				951B307028B0CB3700552E75 /* ViewController.swift in Sources */,
 				951B30A528B11A0800552E75 /* SearchInteractor.swift in Sources */,
+				951B30B428B2287100552E75 /* FooterView.swift in Sources */,
 				951B30B028B13E4900552E75 /* TrackCell.swift in Sources */,
 				951B308428B0E91800552E75 /* SearchResponse.swift in Sources */,
 				951B306C28B0CB3700552E75 /* AppDelegate.swift in Sources */,

@@ -25,11 +25,12 @@ class SearchInteractor: SearchBusinessLogic {
         
         switch request {
         case .getTracks(searchTerm: let searchTerm):
+            //Коли спрацює цей кейст то викличемо у презентера ще один кейс
+            presenter?.presentData(response: .presentFooterView)
             //Запит
             networkServise.fetchTracks(searchText: searchTerm) { [weak self] searchResponse in
                 //Передаємо presenter
                 self?.presenter?.presentData(response: .presentTracks(searchResponse: searchResponse))
-
             }
         }
     }
