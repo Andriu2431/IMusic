@@ -29,6 +29,8 @@
 		951B30AE28B13E3000552E75 /* TrackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 951B30AD28B13E3000552E75 /* TrackCell.xib */; };
 		951B30B028B13E4900552E75 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951B30AF28B13E4900552E75 /* TrackCell.swift */; };
 		951B30B428B2287100552E75 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951B30B328B2287100552E75 /* FooterView.swift */; };
+		951B30B728B239B600552E75 /* TrackDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 951B30B628B239B600552E75 /* TrackDetailView.xib */; };
+		951B30B928B239C500552E75 /* TrackDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951B30B828B239C500552E75 /* TrackDetailView.swift */; };
 		BCCDAE2164E7D253D5B660A7 /* Pods_IMusic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CEB6AF5D94C9E1949DA458D /* Pods_IMusic.framework */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +61,8 @@
 		951B30AD28B13E3000552E75 /* TrackCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackCell.xib; sourceTree = "<group>"; };
 		951B30AF28B13E4900552E75 /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
 		951B30B328B2287100552E75 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
+		951B30B628B239B600552E75 /* TrackDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackDetailView.xib; sourceTree = "<group>"; };
+		951B30B828B239C500552E75 /* TrackDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDetailView.swift; sourceTree = "<group>"; };
 		DA5048DD63923198200CEA89 /* Pods-IMusic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IMusic.release.xcconfig"; path = "Target Support Files/Pods-IMusic/Pods-IMusic.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,6 +136,7 @@
 		951B308928B1192500552E75 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				951B30B528B2399800552E75 /* TrackDetailView */,
 				951B30B228B2285D00552E75 /* FooterView */,
 				951B30AC28B13E2000552E75 /* Cell */,
 				951B30A728B11E7B00552E75 /* SearchViewController.storyboard */,
@@ -185,6 +190,15 @@
 				951B30B328B2287100552E75 /* FooterView.swift */,
 			);
 			path = FooterView;
+			sourceTree = "<group>";
+		};
+		951B30B528B2399800552E75 /* TrackDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				951B30B628B239B600552E75 /* TrackDetailView.xib */,
+				951B30B828B239C500552E75 /* TrackDetailView.swift */,
+			);
+			path = TrackDetailView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,6 +265,7 @@
 				951B307828B0CB3800552E75 /* LaunchScreen.storyboard in Resources */,
 				951B307528B0CB3800552E75 /* Assets.xcassets in Resources */,
 				951B30AE28B13E3000552E75 /* TrackCell.xib in Resources */,
+				951B30B728B239B600552E75 /* TrackDetailView.xib in Resources */,
 				951B307328B0CB3700552E75 /* Main.storyboard in Resources */,
 				951B30A828B11E7B00552E75 /* SearchViewController.storyboard in Resources */,
 			);
@@ -320,6 +335,7 @@
 				951B30A328B11A0800552E75 /* SearchModels.swift in Sources */,
 				951B308028B0CB9400552E75 /* MainTabBarController.swift in Sources */,
 				951B30A028B11A0800552E75 /* SearchPresenter.swift in Sources */,
+				951B30B928B239C500552E75 /* TrackDetailView.swift in Sources */,
 				951B306E28B0CB3700552E75 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
