@@ -103,7 +103,20 @@ class TrackDetailView: UIView {
             //Скільки часу залишилось іграти музиці в теперешній час
             let currentDuratinText = ((durationTime ?? CMTimeMake(value: 1, timescale: 1)) - time).toDisplayString()
             self?.duratioLabel.text = "-\(currentDuratinText)"
+            //Оновляємо слайдер
+            self?.updateCurrentTimeSlider()
         }
+    }
+    
+    //Метод який буде переміщати slider по часу коли йде музика
+    private func updateCurrentTimeSlider() {
+        //Точка де ми в цей час
+        let currentTimeSecond = CMTimeGetSeconds(player.currentTime())
+        //скільки загальний трек
+        let durationSecons = CMTimeGetSeconds(player.currentItem?.duration ?? CMTimeMake(value: 1, timescale: 1))
+        //Шукаємо співвідношення в процентах
+        let percentage = currentTimeSecond / durationSecons
+        self.currentTimeSlider.value = Float(percentage)
     }
     
     //MARK: Animations
@@ -144,9 +157,20 @@ class TrackDetailView: UIView {
     }
     
     @IBAction func handleCurrentTimeSlider(_ sender: Any) {
+        //Кожен раз коли будемо пересувати слайдер то буде музика також пересуватись
+        let percentage = currentTimeSlider.value
+        guard let duration = player.currentItem?.duration else  { return }
+        //Довжина треку в секундах
+        let durationInSeconds = CMTimeGetSeconds(duration)
+        //Де ми зара
+        let seekTimeInSeconds = Float64(percentage) * durationInSeconds
+        //Секунди в стрінг конвертуємо в CMTime
+        let seekTime = CMTimeMakeWithSeconds(seekTimeInSeconds, preferredTimescale: 1)
+        player.seek(to: seekTime)
     }
     
     @IBAction func handleVolumeSlider(_ sender: Any) {
+        player.volume = volumeSlider.value
     }
     
     @IBAction func previousTrack(_ sender: Any) {
