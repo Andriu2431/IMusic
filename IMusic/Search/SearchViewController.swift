@@ -132,6 +132,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         trackDetailsView.frame = view.frame
         //Заповнюємо UI
         trackDetailsView.set(viewModel: cellViewModel)
+        trackDetailsView.delegate = self
         
         //Передаємо його щоб був над всією іерархією контроллерів
         window?.addSubview(trackDetailsView)
@@ -171,5 +172,52 @@ extension SearchViewController: UISearchBarDelegate {
             //Робим запит до interactor
             self.interactor?.makeRequest(request: .getTracks(searchTerm: searchText))
         })
+    }
+}
+
+//Розширення яке раілізує делегат TrackMovingDelegate
+extension SearchViewController: TrackMovingDelegate {
+    
+    //Метод і буде вертати трек, в залежності він Bool значення або попередній або наступний
+    private func getTrack(isForwardTrack: Bool) -> SearchViewModel.Cell? {
+        //Перевірио чи є indexPath на якому ми зара знаходимось
+        guard let indexPath = table.indexPathForSelectedRow else { return nil }
+        //Забираємо віділення контейнера на якому ми зара знаходимось
+        table.deselectRow(at: indexPath, animated: true)
+        var nextIndexPath: IndexPath!
+        
+        //Якщо перключаємо в перед
+        if isForwardTrack {
+            //Отримуємо наступний контейнер
+            nextIndexPath = IndexPath(row: indexPath.row + 1, section: indexPath.section)
+            
+            //якщо ми вже на останньому треку то при переключені вернемось на перший
+            if nextIndexPath.row == searchViewModel.cells.count {
+                nextIndexPath.row = 0
+            }
+        } else { //Якщо перключаємо в назад
+            nextIndexPath = IndexPath(row: indexPath.row - 1, section: indexPath.section)
+            
+            //Якщо ми на самій першій тапаєм назад то включимо останній трек
+            if nextIndexPath.row == -1 {
+                nextIndexPath.row = searchViewModel.cells.count - 1
+            }
+        }
+        
+        //Виділяємо строку по nextIndexPath
+        table.selectRow(at: nextIndexPath, animated: true, scrollPosition: .none)
+        //Дістаємо уже інформацію по такому контейнеру
+        let cellViewModel = searchViewModel.cells[nextIndexPath.row]
+        return cellViewModel
+    }
+    
+    //Попередній трек
+    func moveBackForPreviousTrack() -> SearchViewModel.Cell? {
+        return getTrack(isForwardTrack: false)
+    }
+    
+    //Наступний трек
+    func moveForwardForPreviousTrack() -> SearchViewModel.Cell? {
+        return getTrack(isForwardTrack: true)
     }
 }

@@ -9,6 +9,14 @@ import UIKit
 import SDWebImage
 import AVKit
 
+//делегат
+protocol TrackMovingDelegate: AnyObject {
+    //БУде нам вертати поперениій контейнер
+    func moveBackForPreviousTrack() -> SearchViewModel.Cell?
+    //БУде нам вертати наступний контейнер
+    func moveForwardForPreviousTrack() -> SearchViewModel.Cell?
+}
+
 //Детальний контроллер
 class TrackDetailView: UIView {
     
@@ -28,6 +36,9 @@ class TrackDetailView: UIView {
         avPlayer.automaticallyWaitsToMinimizeStalling = false
         return avPlayer
     }()
+    
+    //Створюємо обєкт делегата
+    weak var delegate: TrackMovingDelegate?
     
     //MARK: awakeFromNib
     
@@ -174,9 +185,23 @@ class TrackDetailView: UIView {
     }
     
     @IBAction func previousTrack(_ sender: Any) {
+        //Отримаємо попередній трек
+        let cellViewModel = delegate?.moveBackForPreviousTrack()
+        
+        guard let cellViewModel = cellViewModel else { return }
+        
+        //Оновляємо данні
+        self.set(viewModel: cellViewModel)
     }
     
     @IBAction func nextTrack(_ sender: Any) {
+        //Отримаємо наступний трек
+        let cellViewModel = delegate?.moveForwardForPreviousTrack()
+        
+        guard let cellViewModel = cellViewModel else { return }
+        
+        //Оновляємо данні
+        self.set(viewModel: cellViewModel)
     }
     
     @IBAction func playPauseAction(_ sender: Any) {
