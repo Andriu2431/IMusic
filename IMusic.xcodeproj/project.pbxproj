@@ -7,14 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		167820F828B4EAC50086C3BE /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167820F728B4EAC50086C3BE /* Library.swift */; };
 		951B306C28B0CB3700552E75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951B306B28B0CB3700552E75 /* AppDelegate.swift */; };
 		951B306E28B0CB3700552E75 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951B306D28B0CB3700552E75 /* SceneDelegate.swift */; };
-		951B307028B0CB3700552E75 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951B306F28B0CB3700552E75 /* ViewController.swift */; };
 		951B307328B0CB3700552E75 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 951B307128B0CB3700552E75 /* Main.storyboard */; };
 		951B307528B0CB3800552E75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 951B307428B0CB3800552E75 /* Assets.xcassets */; };
 		951B307828B0CB3800552E75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 951B307628B0CB3800552E75 /* LaunchScreen.storyboard */; };
 		951B308028B0CB9400552E75 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951B307F28B0CB9400552E75 /* MainTabBarController.swift */; };
-		951B308228B0CDA500552E75 /* SearchMusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951B308128B0CDA500552E75 /* SearchMusicViewController.swift */; };
 		951B308428B0E91800552E75 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951B308328B0E91800552E75 /* SearchResponse.swift */; };
 		951B308628B0FFB800552E75 /* NetworkServise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951B308528B0FFB800552E75 /* NetworkServise.swift */; };
 		951B308828B1074F00552E75 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 951B308728B1074F00552E75 /* .gitignore */; };
@@ -38,16 +37,15 @@
 /* Begin PBXFileReference section */
 		04997C787AD539DA0B3F4D15 /* Pods-IMusic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IMusic.debug.xcconfig"; path = "Target Support Files/Pods-IMusic/Pods-IMusic.debug.xcconfig"; sourceTree = "<group>"; };
 		0CEB6AF5D94C9E1949DA458D /* Pods_IMusic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IMusic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		167820F728B4EAC50086C3BE /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		951B306828B0CB3700552E75 /* IMusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IMusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		951B306B28B0CB3700552E75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		951B306D28B0CB3700552E75 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		951B306F28B0CB3700552E75 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		951B307228B0CB3700552E75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		951B307428B0CB3800552E75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		951B307728B0CB3800552E75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		951B307928B0CB3800552E75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		951B307F28B0CB9400552E75 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
-		951B308128B0CDA500552E75 /* SearchMusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicViewController.swift; sourceTree = "<group>"; };
 		951B308328B0E91800552E75 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
 		951B308528B0FFB800552E75 /* NetworkServise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServise.swift; sourceTree = "<group>"; };
 		951B308728B1074F00552E75 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -123,9 +121,8 @@
 				951B306D28B0CB3700552E75 /* SceneDelegate.swift */,
 				951B309828B119A100552E75 /* Services */,
 				951B307F28B0CB9400552E75 /* MainTabBarController.swift */,
+				167820F728B4EAC50086C3BE /* Library.swift */,
 				951B308928B1192500552E75 /* Search */,
-				951B308128B0CDA500552E75 /* SearchMusicViewController.swift */,
-				951B306F28B0CB3700552E75 /* ViewController.swift */,
 				951B30A928B1206600552E75 /* Helpers */,
 				951B307128B0CB3700552E75 /* Main.storyboard */,
 				951B307428B0CB3800552E75 /* Assets.xcassets */,
@@ -325,10 +322,9 @@
 			files = (
 				951B308628B0FFB800552E75 /* NetworkServise.swift in Sources */,
 				951B30AB28B1207E00552E75 /* UIViewController + Storyboard.swift in Sources */,
-				951B308228B0CDA500552E75 /* SearchMusicViewController.swift in Sources */,
-				951B307028B0CB3700552E75 /* ViewController.swift in Sources */,
 				951B30A528B11A0800552E75 /* SearchInteractor.swift in Sources */,
 				951B30B428B2287100552E75 /* FooterView.swift in Sources */,
+				167820F828B4EAC50086C3BE /* Library.swift in Sources */,
 				951B30BB28B2B2D000552E75 /* CMTime + Extension.swift in Sources */,
 				951B30B028B13E4900552E75 /* TrackCell.swift in Sources */,
 				951B308428B0E91800552E75 /* SearchResponse.swift in Sources */,

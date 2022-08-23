@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 //Це наш кастомний barController
 class MainTabBarController: UITabBarController {
@@ -17,9 +18,15 @@ class MainTabBarController: UITabBarController {
         
         let searchVC: SearchViewController = SearchViewController.loadFromStoryboard()
         
+        //Екран реалізований через SwiftUI
+        let library = Library()
+        let hostVC = UIHostingController(rootView: library)
+        hostVC.tabBarItem.image = #imageLiteral(resourceName: "library")
+        hostVC.tabBarItem.title = "Library"
+        
         //Передаємо які контроллери ми хочемо бачити в tabBar
-        viewControllers = [generateViewController(rootViewController: searchVC, image: #imageLiteral(resourceName: "search"), title: "Search"),
-                           generateViewController(rootViewController: ViewController(), image: #imageLiteral(resourceName: "library"), title: "Library")
+        viewControllers = [hostVC,
+                           generateViewController(rootViewController: searchVC, image: #imageLiteral(resourceName: "search"), title: "Search")
         ]
     }
     
