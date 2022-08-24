@@ -6,8 +6,13 @@
 //
 
 import SwiftUI
+import URLImage
 
 struct Library: View {
+    
+    //Отримуємо масив збережених треків
+    var tracks = UserDefaults.standard.savedTracks()
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -42,8 +47,8 @@ struct Library: View {
                 //                Spacer()
                 
                 //Додамо музику
-                List {
-                    LibraryCell()
+                List(tracks) { track in
+                    LibraryCell(cell: track)
                 }
             }
             .navigationBarTitle("Library")
@@ -53,12 +58,21 @@ struct Library: View {
 
 //Контейнер
 struct LibraryCell: View {
+    
+    //Один трек 
+    var cell: SearchViewModel.Cell
+    
     var body: some View {
         HStack {
-            Image("Image").resizable().frame(width: 60, height: 60).cornerRadius(2)
-            VStack {
-                Text("Track name")
-                Text("Artist name")
+            URLImage(URL(string: cell.iconUrlString ?? "")!) { image in
+                image
+                    .resizable()
+                    .frame(width: 60, height: 60)
+                    .cornerRadius(2)
+            }
+            VStack(alignment: .leading) {
+                Text("\(cell.trackName)")
+                Text("\(cell.artistName)")
             }
         }
     }
