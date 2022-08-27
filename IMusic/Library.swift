@@ -10,8 +10,13 @@ import URLImage
 
 struct Library: View {
     
-    //Отримуємо масив збережених треків
-    var tracks = UserDefaults.standard.savedTracks()
+    //Отримуємо масив збережених треків - @State тому що ми хочемо щоб контейнер по індексу пропав з екрану
+    @State var tracks = UserDefaults.standard.savedTracks()
+    //Властивіть за яким буде слідкувати aлерт контроллер
+    @State private var showingAlert = false
+    //Інформація по конкретному треку
+    @State private var track: SearchViewModel.Cell!
+
     
     var body: some View {
         NavigationView {
@@ -43,15 +48,61 @@ struct Library: View {
                 
                 //Зробимо полосу під кнопками
                 Divider().padding(.leading).padding(.trailing).padding(.top)
-                //Все піднімаємо наверх
-                //                Spacer()
                 
-                //Додамо музику
-                List(tracks) { track in
-                    LibraryCell(cell: track)
+                //Додамо музику - List це як список
+                List {
+                    
+                    //Тут зробимо вже в списку ще один як список для того щоб можна було видалити пісню свайпом
+                    ForEach(tracks) { track in
+                        LibraryCell(cell: track)
+                        //Жест довгого нажимання для видалення треку
+                            .gesture(LongPressGesture().onEnded({ _ in
+                                print("Pressed")
+                                //Передаємо трек на який нажали
+                                self.track = track
+                                //Міняємо значення, тоді вилізе алерт
+                                self.showingAlert = true
+                            }))
+                    }.onDelete(perform: delete) //цей метод і відповідає за видалення свайпом - не передаємо значення так як SwiftUI сам його передасть коли ми зробимо свайп
                 }
-            }
+            }.actionSheet(isPresented: $showingAlert, content: { // це як алерт контроллер в UIKit
+                //це все появиться тоді коли $showingAlert зміниться на true
+                ActionSheet(title: Text("Are you sure you want to delete this track?"),
+                            buttons: [.destructive(Text("Delete"), action: { self.delete(track: track) }),
+                                      .cancel() ])
+            })
+            
             .navigationBarTitle("Library")
+        }
+    }
+    
+    //Метод буде видаляти пісню
+    func delete(at offsets: IndexSet) {
+        tracks.remove(atOffsets: offsets)
+        
+        //але ще потрібно видалити з памяті телефону цей трек
+        //Отримуємо данні треків
+        if let savedData = try? NSKeyedArchiver.archivedData(withRootObject: tracks, requiringSecureCoding: false) {
+            let defaults = UserDefaults.standard
+            
+            //Зберігаємо нові данні в UserDefaults
+            defaults.set(savedData, forKey: UserDefaults.favouriteTrackKey)
+        }
+    }
+    
+    //Метод буде видаляти пісню
+    func delete(track: SearchViewModel.Cell) {
+        //Отримаємо індекст треку який отримали
+        let index = tracks.firstIndex(of: track)
+        
+        guard let myIndex = index else {  return }
+        //Видаляємо трек по індексу
+        tracks.remove(at: myIndex)
+        
+        if let savedData = try? NSKeyedArchiver.archivedData(withRootObject: tracks, requiringSecureCoding: false) {
+            let defaults = UserDefaults.standard
+            
+            defaults.set(savedData, forKey: UserDefaults.favouriteTrackKey)
         }
     }
 }
@@ -59,7 +110,7 @@ struct Library: View {
 //Контейнер
 struct LibraryCell: View {
     
-    //Один трек 
+    //Один трек
     var cell: SearchViewModel.Cell
     
     var body: some View {
