@@ -31,8 +31,6 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
 
         tabBar.tintColor = #colorLiteral(red: 1, green: 0.1719063818, blue: 0.4505617023, alpha: 1)
-        tabBar.backgroundColor = .white
-        tabBar.alpha = 0.9
 
         setupTrackDetailView()
         searchVC.tabBarDelegate = self
@@ -84,11 +82,11 @@ class MainTabBarController: UITabBarController {
 
 extension MainTabBarController: MainTabBarControllerDelegate {
     
-    //Метод презентує детальний контроллер
+    //Метод презентує детальний контроллер - тут він просто виїжджає на верх
     func maximizeTrackDetailController(viewModel: SearchViewModel.Cell?) {
         
-        maximizedTopAnchorConstraint.isActive = true
         minimazedTopAnchorConstraint.isActive = false
+        maximizedTopAnchorConstraint.isActive = true
         //Ставимо констрейнни на 0 щоб вони були на екрані а не за ним
         maximizedTopAnchorConstraint.constant = 0
         bottomAncorConstraint.constant = 0
@@ -102,6 +100,9 @@ extension MainTabBarController: MainTabBarControllerDelegate {
             self.view.layoutIfNeeded()
             //Щоб tabBar як пропав з екрану
             self.tabBar.alpha = 0
+            //Детальний контроллер показуємо а міні закриваємо
+            self.trackDetailView.miniTrackView.alpha = 0
+            self.trackDetailView.maximazedStackView.alpha = 1
         }
         
         guard let viewModel = viewModel else { return }
@@ -110,7 +111,7 @@ extension MainTabBarController: MainTabBarControllerDelegate {
         self.trackDetailView.set(viewModel: viewModel)
     }
 
-    //Метод буде скривати анімовано додатковий екран з треком
+    //Метод буде скривати анімовано додатковий екран з треком - екран як просто буде зїжджати в низ
     func minimizeTrackDetailController() {
 
         maximizedTopAnchorConstraint.isActive = false
@@ -126,6 +127,9 @@ extension MainTabBarController: MainTabBarControllerDelegate {
             self.view.layoutIfNeeded()
             //Тут вертаємо tabBar на місце, для того щоб він появився на екрані
             self.tabBar.alpha = 1
+            //Детальний контроллер закриваємо а міні показуємо
+            self.trackDetailView.miniTrackView.alpha = 1
+            self.trackDetailView.maximazedStackView.alpha = 0
         }
     }
 }
