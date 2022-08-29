@@ -16,7 +16,8 @@ struct Library: View {
     @State private var showingAlert = false
     //Інформація по конкретному треку
     @State private var track: SearchViewModel.Cell!
-
+    var tabBarDelegate: MainTabBarControllerDelegate?
+    
     
     var body: some View {
         NavigationView {
@@ -25,7 +26,9 @@ struct Library: View {
                 GeometryReader { geometry in
                     HStack(spacing: 20) {
                         Button {
-                            print("123")
+                            //Передаємо перший трек з бази данних
+                            self.track = self.tracks[0]
+                            self.tabBarDelegate?.maximizeTrackDetailController(viewModel: self.track)
                         } label: {
                             Image(systemName: "play.fill")
                                 .frame(width: abs(geometry.size.width / 2 - 10), height: 50)
@@ -35,7 +38,8 @@ struct Library: View {
                         }
                         
                         Button {
-                            print("54321")
+                            //Оновляємо данні з бази данних
+                            self.tracks = UserDefaults.standard.savedTracks()
                         } label: {
                             Image(systemName: "arrow.2.circlepath")
                                 .frame(width: abs(geometry.size.width / 2 - 10), height: 50)
@@ -56,19 +60,25 @@ struct Library: View {
                     ForEach(tracks) { track in
                         LibraryCell(cell: track)
                         //Жест довгого нажимання для видалення треку
-                            .gesture(LongPressGesture().onEnded({ _ in
-                                print("Pressed")
-                                //Передаємо трек на який нажали
-                                self.track = track
-                                //Міняємо значення, тоді вилізе алерт
-                                self.showingAlert = true
-                            }))
+                            .gesture(LongPressGesture()
+                                .onEnded { _ in
+                                    //Передаємо трек на який нажали
+                                    self.track = track
+                                    //Міняємо значення, тоді вилізе алерт
+                                    self.showingAlert = true
+                                }
+                                     //Жест тапу по контейнеру
+                                .simultaneously(with: TapGesture()
+                                    .onEnded { _ in
+                                        self.track = track
+                                        self.tabBarDelegate?.maximizeTrackDetailController(viewModel: self.track)
+                                    }))
                     }.onDelete(perform: delete) //цей метод і відповідає за видалення свайпом - не передаємо значення так як SwiftUI сам його передасть коли ми зробимо свайп
                 }
             }.actionSheet(isPresented: $showingAlert, content: { // це як алерт контроллер в UIKit
                 //це все появиться тоді коли $showingAlert зміниться на true
                 ActionSheet(title: Text("Are you sure you want to delete this track?"),
-                            buttons: [.destructive(Text("Delete"), action: { self.delete(track: track) }),
+                            buttons: [.destructive(Text("Delete"), action: { self.delete(track: self.track) }),
                                       .cancel() ])
             })
             
