@@ -26,6 +26,7 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
     private var timer: Timer?
     //Це наш індикатор та лейбел загрузки 
     private lazy var footerView = FooterView()
+    weak var tabBarDelegate: MainTabBarControllerDelegate?
     
     // MARK: Object lifecycle
     
@@ -119,23 +120,8 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cellViewModel = searchViewModel.cells[indexPath.row]
         
-        //Отримуємо вінко на якому находимось
-        let window = UIApplication.shared.connectedScenes
-            .filter({$0.activationState == .foregroundActive})
-            .compactMap({$0 as? UIWindowScene})
-            .first?.windows
-            .filter({$0.isKeyWindow}).first
-        
-        //Беремо перший xib файл
-        let trackDetailsView: TrackDetailView = TrackDetailView.loadFromNib()
-        //Задамо розміри як на view
-        trackDetailsView.frame = view.frame
-        //Заповнюємо UI
-        trackDetailsView.set(viewModel: cellViewModel)
-        trackDetailsView.delegate = self
-        
-        //Передаємо його щоб був над всією іерархією контроллерів
-        window?.addSubview(trackDetailsView)
+        //Метод дякий буде презентувати додатковий екран з треком
+        self.tabBarDelegate?.maximizeTrackDetailController(viewModel: cellViewModel)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

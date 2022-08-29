@@ -11,17 +11,21 @@ import SwiftUI
 //Делегат через який буемо делегувати данними
 protocol MainTabBarControllerDelegate: AnyObject {
     func minimizeTrackDetailController()
+    func maximizeTrackDetailController(viewModel: SearchViewModel.Cell?)
 }
 
 //Це наш кастомний barController
 class MainTabBarController: UITabBarController {
     
-    let searchVC: SearchViewController = SearchViewController.loadFromStoryboard()
     //Для повного екрану
     private var minimazedTopAnchorConstraint: NSLayoutConstraint!
     //Для скритого екрану
     private var maximizedTopAnchorConstraint: NSLayoutConstraint!
     private var bottomAncorConstraint: NSLayoutConstraint!
+    
+    //Отримуємо детальний контроллер
+    let trackDetailView: TrackDetailView = TrackDetailView.loadFromNib()
+    let searchVC: SearchViewController = SearchViewController.loadFromStoryboard()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +35,7 @@ class MainTabBarController: UITabBarController {
         tabBar.alpha = 0.9
 
         setupTrackDetailView()
+        searchVC.tabBarDelegate = self
 
         //Екран реалізований через SwiftUI
         let library = Library()
@@ -58,16 +63,13 @@ class MainTabBarController: UITabBarController {
     //Тут будемо настроювати TrackDetailView
     private func setupTrackDetailView() {
         
-        //Отримуємо детальний контроллер
-        let trackDetailView: TrackDetailView = TrackDetailView.loadFromNib()
-        trackDetailView.backgroundColor = .green
         trackDetailView.tabBarDelegate = self
         trackDetailView.delegate = searchVC
         view.insertSubview(trackDetailView, belowSubview: tabBar)
 
         // use auto layout
         trackDetailView.translatesAutoresizingMaskIntoConstraints = false
-        maximizedTopAnchorConstraint = trackDetailView.topAnchor.constraint(equalTo: view.topAnchor)
+        maximizedTopAnchorConstraint = trackDetailView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height)
         minimazedTopAnchorConstraint = trackDetailView.topAnchor.constraint(equalTo: tabBar.topAnchor, constant: -64)
         bottomAncorConstraint = trackDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: view.frame.height)
         
@@ -81,11 +83,38 @@ class MainTabBarController: UITabBarController {
 
 
 extension MainTabBarController: MainTabBarControllerDelegate {
+    
+    //Метод презентує детальний контроллер
+    func maximizeTrackDetailController(viewModel: SearchViewModel.Cell?) {
+        
+        maximizedTopAnchorConstraint.isActive = true
+        minimazedTopAnchorConstraint.isActive = false
+        //Ставимо констрейнни на 0 щоб вони були на екрані а не за ним
+        maximizedTopAnchorConstraint.constant = 0
+        bottomAncorConstraint.constant = 0
+        
+        UIView.animate(withDuration: 0.5,
+                       delay: 0,
+                       usingSpringWithDamping: 0.7,
+                       initialSpringVelocity: 1,
+                       options: .curveEaseOut) {
+            //Обновляємо екран дял того щоб було видко як скривається екран
+            self.view.layoutIfNeeded()
+            //Щоб tabBar як пропав з екрану
+            self.tabBar.alpha = 0
+        }
+        
+        guard let viewModel = viewModel else { return }
+
+        //Сетимо данні по треку - заповнюємо UI елементи
+        self.trackDetailView.set(viewModel: viewModel)
+    }
 
     //Метод буде скривати анімовано додатковий екран з треком
     func minimizeTrackDetailController() {
 
         maximizedTopAnchorConstraint.isActive = false
+        bottomAncorConstraint.constant = view.frame.height
         minimazedTopAnchorConstraint.isActive = true
 
         UIView.animate(withDuration: 0.5,
@@ -95,6 +124,8 @@ extension MainTabBarController: MainTabBarControllerDelegate {
                        options: .curveEaseOut) {
             //Обновляємо екран дял того щоб було видко як скривається екран
             self.view.layoutIfNeeded()
+            //Тут вертаємо tabBar на місце, для того щоб він появився на екрані
+            self.tabBar.alpha = 1
         }
     }
 }
