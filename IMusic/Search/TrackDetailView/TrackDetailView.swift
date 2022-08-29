@@ -39,6 +39,7 @@ class TrackDetailView: UIView {
     
     //Створюємо обєкт делегата
     weak var delegate: TrackMovingDelegate?
+    weak var tabBarDelegate: MainTabBarControllerDelegate?
     
     //MARK: awakeFromNib
     
@@ -163,8 +164,11 @@ class TrackDetailView: UIView {
     //MARK: @IBAction
     
     @IBAction func dragDownButtonTapped(_ sender: Any) {
-        //Звертаємо екран
-        self.removeFromSuperview()
+//        //Звертаємо екран
+//        self.removeFromSuperview()
+        
+        //Виклкикаємо метод який скриє анімовано екран до tabBar
+        self.tabBarDelegate?.minimizeTrackDetailController()
     }
     
     @IBAction func handleCurrentTimeSlider(_ sender: Any) {

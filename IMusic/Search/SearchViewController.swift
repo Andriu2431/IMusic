@@ -127,7 +127,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
             .filter({$0.isKeyWindow}).first
         
         //Беремо перший xib файл
-        let trackDetailsView = Bundle.main.loadNibNamed("TrackDetailView", owner: self, options: nil)?.first as! TrackDetailView
+        let trackDetailsView: TrackDetailView = TrackDetailView.loadFromNib()
         //Задамо розміри як на view
         trackDetailsView.frame = view.frame
         //Заповнюємо UI
