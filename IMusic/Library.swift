@@ -70,6 +70,16 @@ struct Library: View {
                                      //Жест тапу по контейнеру
                                 .simultaneously(with: TapGesture()
                                     .onEnded { _ in
+                                        //Беремо той контроллер наякому ми зараз
+                                        let keyWindow = UIApplication.shared.connectedScenes
+                                            .filter({$0.activationState == .foregroundActive})
+                                            .compactMap({$0 as? UIWindowScene})
+                                            .first?.windows
+                                            .filter({$0.isKeyWindow}).first
+                                        //Беремо tabBar
+                                        let tabBarVC = keyWindow?.rootViewController as? MainTabBarController
+                                        tabBarVC?.trackDetailView.delegate = self
+                                        
                                         self.track = track
                                         self.tabBarDelegate?.maximizeTrackDetailController(viewModel: self.track)
                                     }))
@@ -142,5 +152,41 @@ struct LibraryCell: View {
 struct Library_Previews: PreviewProvider {
     static var previews: some View {
         Library()
+    }
+}
+
+//Реалізуємо тут перемикання треків
+extension Library: TrackMovingDelegate {
+    
+    func moveBackForPreviousTrack() -> SearchViewModel.Cell? {
+        let index = tracks.firstIndex(of: track)
+        guard let myIndex = index else { return nil }
+        var nextTrack: SearchViewModel.Cell
+        
+        //Якщо ми на першому треці та рухаємось в ліво то перепригуємо на останній
+        if myIndex - 1 == -1 {
+            nextTrack = tracks[tracks.count - 1]
+        } else {
+            nextTrack = tracks[myIndex - 1]
+        }
+        self.track = nextTrack
+        
+        return nextTrack
+    }
+    
+    func moveForwardForPreviousTrack() -> SearchViewModel.Cell? {
+        let index = tracks.firstIndex(of: track)
+        guard let myIndex = index else { return nil }
+        var nextTrack: SearchViewModel.Cell
+        
+        //Якщо ми на останньому треці та рухаємось в право то перепригуємо на перший
+        if myIndex + 1 == tracks.count {
+            nextTrack = tracks[0]
+        } else {
+            nextTrack = tracks[myIndex + 1]
+        }
+        self.track = nextTrack
+        
+        return nextTrack
     }
 }

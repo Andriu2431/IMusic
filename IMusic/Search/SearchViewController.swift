@@ -59,6 +59,19 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
         setupTableView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //Беремо той контроллер наякому ми зараз
+        let keyWindow = UIApplication.shared.connectedScenes
+            .filter({$0.activationState == .foregroundActive})
+            .compactMap({$0 as? UIWindowScene})
+            .first?.windows
+            .filter({$0.isKeyWindow}).first
+        //Беремо tabBar
+        let tabBarVC = keyWindow?.rootViewController as? MainTabBarController
+        tabBarVC?.trackDetailView.delegate = self
+    }
+    
     //Метод який створює searchBar
     private func setupSearchBar() {
         //Вставимо в navItem searchBar

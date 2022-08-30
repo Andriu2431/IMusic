@@ -10,7 +10,7 @@ import SDWebImage
 import AVKit
 
 //делегат
-protocol TrackMovingDelegate: AnyObject {
+protocol TrackMovingDelegate {
     //БУде нам вертати поперениій контейнер
     func moveBackForPreviousTrack() -> SearchViewModel.Cell?
     //БУде нам вертати наступний контейнер
@@ -44,7 +44,7 @@ class TrackDetailView: UIView {
     }()
     
     //Створюємо обєкт делегата
-    weak var delegate: TrackMovingDelegate?
+    var delegate: TrackMovingDelegate?
     weak var tabBarDelegate: MainTabBarControllerDelegate?
     
     //MARK: awakeFromNib

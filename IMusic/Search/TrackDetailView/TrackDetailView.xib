@@ -185,7 +185,7 @@
                                         <constraint firstAttribute="height" constant="17" id="y2O-nL-QHl"/>
                                     </constraints>
                                 </imageView>
-                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="jIv-BL-Csp">
+                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="7" translatesAutoresizingMaskIntoConstraints="NO" id="jIv-BL-Csp">
                                     <rect key="frame" x="25" y="0.0" width="304" height="18"/>
                                     <connections>
                                         <action selector="handleVolumeSlider:" destination="7ZT-W6-fh3" eventType="valueChanged" id="7hn-na-MkU"/>
